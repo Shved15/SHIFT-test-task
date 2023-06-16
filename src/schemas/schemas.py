@@ -17,10 +17,6 @@ class DepartmentBase(BaseModel):
     name: str
 
 
-class DepartmentCreate(DepartmentBase):
-    pass
-
-
 class Department(DepartmentBase):
     id: int
 
@@ -57,10 +53,6 @@ class SalaryBase(BaseModel):
     current_salary: float
     next_salary: Optional[float] = None
     raise_date: Optional[date] = None
-
-
-class SalaryCreate(SalaryBase):
-    pass
 
 
 class Salary(SalaryBase):

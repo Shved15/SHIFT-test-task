@@ -3,10 +3,13 @@ from sqlalchemy.orm import relationship
 
 from src.database.database import Base
 
+# Создание объекта метаданных
 metadata = MetaData()
 
 
 class DepartmentModel(Base):
+    """Определение модели Отдела."""
+
     __tablename__ = "departments"
     metadata = metadata
 
@@ -18,6 +21,8 @@ class DepartmentModel(Base):
 
 
 class EmployeeModel(Base):
+    """Определение модели Сотрудника."""
+
     __tablename__ = "employees"
     metadata = metadata
 
@@ -36,6 +41,8 @@ class EmployeeModel(Base):
 
 
 class SalaryModel(Base):
+    """Определение модели Зарплаты."""
+
     __tablename__ = "salaries"
     metadata = metadata
 
