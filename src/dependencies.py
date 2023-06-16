@@ -5,14 +5,15 @@ from jose import jwt, JWTError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.schemas.schemas import TokenData
-from .crud import get_employee
+from src.crud import get_employee
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from src.database.database import get_db
+from src.database.config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 
-SECRET_KEY = "acb04604a9f82056ba81d5bdb4e176f0e53dbd55cf0b762519465d7e246023cf"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+SECRET_KEY = SECRET_KEY
+ALGORITHM = ALGORITHM
+ACCESS_TOKEN_EXPIRE_MINUTES = int(ACCESS_TOKEN_EXPIRE_MINUTES)
 
 # Создание схемы OAuth2PasswordBearer для получения токена доступа
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
