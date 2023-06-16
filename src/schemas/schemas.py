@@ -57,7 +57,6 @@ class SalaryBase(BaseModel):
     current_salary: float
     next_salary: Optional[float] = None
     raise_date: Optional[date] = None
-    raise_percentage: Optional[float] = None
 
 
 class SalaryCreate(SalaryBase):

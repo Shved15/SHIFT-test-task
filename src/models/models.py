@@ -45,7 +45,6 @@ class SalaryModel(Base):
     current_salary = Column(Float)
     next_salary = Column(Float, nullable=True)
     raise_date = Column(Date, nullable=True)
-    raise_percentage = Column(Float, nullable=True)
 
     department = relationship("DepartmentModel", back_populates="salaries")
     employee = relationship("EmployeeModel", back_populates="salaries")

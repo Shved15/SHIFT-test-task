@@ -1,8 +1,8 @@
 """Database creation
 
-Revision ID: e5af0d15fba2
+Revision ID: 58c1989b18d4
 Revises: 
-Create Date: 2023-06-16 20:29:42.652938
+Create Date: 2023-06-16 22:01:35.297481
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e5af0d15fba2'
+revision = '58c1989b18d4'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -42,12 +42,11 @@ def upgrade() -> None:
     op.create_index(op.f('ix_employees_username'), 'employees', ['username'], unique=True)
     op.create_table('salaries',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
-    sa.Column('employee_id', sa.Integer(), nullable=True),
     sa.Column('department_id', sa.Integer(), nullable=True),
+    sa.Column('employee_id', sa.Integer(), nullable=True),
     sa.Column('current_salary', sa.Float(), nullable=True),
     sa.Column('next_salary', sa.Float(), nullable=True),
     sa.Column('raise_date', sa.Date(), nullable=True),
-    sa.Column('raise_percentage', sa.Float(), nullable=True),
     sa.ForeignKeyConstraint(['department_id'], ['departments.id'], ),
     sa.ForeignKeyConstraint(['employee_id'], ['employees.id'], ),
     sa.PrimaryKeyConstraint('id')
