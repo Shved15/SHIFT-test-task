@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.database.database import get_db
 from src.models.models import EmployeeModel
@@ -15,13 +15,14 @@ router = APIRouter(
 
 
 @router.post('/', response_model=Employee)
-def create_employee(request: EmployeeCreate, db: Session = Depends(get_db)):
+async def create_employee(request: EmployeeCreate, db: AsyncSession = Depends(get_db)):
     hashed_password = Hash.bcrypt(request.password)
     new_employee = EmployeeModel(username=request.username, email=request.email, phone_number=request.phone_number,
                                  first_name=request.first_name, last_name=request.last_name,
                                  start_date=request.start_date,
                                  department_id=request.department_id, hashed_password=hashed_password)
     db.add(new_employee)
-    db.commit()
-    db.refresh(new_employee)
+    await db.commit()
+    await db.refresh(new_employee)
     return new_employee
+

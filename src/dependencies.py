@@ -2,12 +2,12 @@ from datetime import datetime, timedelta
 from typing import Optional
 
 from jose import jwt, JWTError
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.schemas.schemas import TokenData
 from .crud import get_employee
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from sqlalchemy.orm import Session
 from src.database.database import get_db
 
 SECRET_KEY = "acb04604a9f82056ba81d5bdb4e176f0e53dbd55cf0b762519465d7e246023cf"
@@ -28,7 +28,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     return encoded_jwt
 
 
-async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -42,7 +42,8 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
         token_data = TokenData(username=username)
     except JWTError:
         raise credentials_exception
-    user = get_employee(db, token_data.username)
+    user = await get_employee(db, token_data.username)
     if user is None:
         raise credentials_exception
     return user
+

@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 from passlib.context import CryptContext
 
 from src.models.models import EmployeeModel, SalaryModel
@@ -6,12 +6,13 @@ from src.models.models import EmployeeModel, SalaryModel
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
-def get_employee(db: Session, username: str):
-    return db.query(EmployeeModel).filter(EmployeeModel.username == username).first()
+async def get_employee(db: AsyncSession, username: str):
+    return await db.run_sync(
+        lambda session: session.query(EmployeeModel).filter(EmployeeModel.username == username).first())
 
 
-def authenticate_user(db: Session, username: str, password: str):
-    user = get_employee(db, username)
+async def authenticate_user(db: AsyncSession, username: str, password: str):
+    user = await get_employee(db, username)
     if not user:
         return False
     if not pwd_context.verify(password, user.hashed_password):
@@ -19,5 +20,6 @@ def authenticate_user(db: Session, username: str, password: str):
     return user
 
 
-def get_salary_by_employee(db: Session, employee_id: int):
-    return db.query(SalaryModel).filter(SalaryModel.employee_id == employee_id).first()
+async def get_salary_by_employee(db: AsyncSession, employee_id: int):
+    return await db.run_sync(lambda session: session.query(SalaryModel).filter(SalaryModel.employee_id == employee_id).first())
+
