@@ -56,6 +56,10 @@ class SalaryBase(BaseModel):
     raise_date: Optional[date] = None
 
 
+class SalaryCreate(SalaryBase):
+    pass
+
+
 class Salary(SalaryBase):
     id: int
 
