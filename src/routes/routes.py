@@ -4,10 +4,11 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.crud import get_salary_by_employee, authenticate_user
+from src.crud import authenticate_user, get_salary_by_employee
 from src.database.database import get_db
-from src.dependencies import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token, get_current_user
-from src.schemas.schemas import Token, Salary, Employee
+from src.dependencies import (ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token,
+                              get_current_user)
+from src.schemas.schemas import Employee, Salary, Token
 
 router = APIRouter()
 

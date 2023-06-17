@@ -1,5 +1,5 @@
-from sqlalchemy.ext.asyncio import AsyncSession
 from passlib.context import CryptContext
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.models.models import EmployeeModel, SalaryModel
 

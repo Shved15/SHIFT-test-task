@@ -1,15 +1,16 @@
 from datetime import datetime, timedelta
 from typing import Optional
 
-from jose import jwt, JWTError
-from sqlalchemy.ext.asyncio import AsyncSession
-
-from src.schemas.schemas import TokenData
-from src.crud import get_employee
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
+from jose import JWTError, jwt
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from src.crud import get_employee
+from src.database.config import (ACCESS_TOKEN_EXPIRE_MINUTES, ALGORITHM,
+                                 SECRET_KEY)
 from src.database.database import get_db
-from src.database.config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
+from src.schemas.schemas import TokenData
 
 SECRET_KEY = SECRET_KEY
 ALGORITHM = ALGORITHM
