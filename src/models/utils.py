@@ -1,6 +1,6 @@
 from passlib.context import CryptContext
 
-# Создание объекта контекста шифрования паролей с использованием
+# Создание объекта контекста шифрования паролей
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 

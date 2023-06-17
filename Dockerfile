@@ -12,5 +12,4 @@ RUN poetry install --no-interaction --no-ansi
 
 RUN apt-get update && apt-get install -y netcat-openbsd postgresql-client
 
-# The command to run when the container launches
 CMD ["./cmds.sh"]
